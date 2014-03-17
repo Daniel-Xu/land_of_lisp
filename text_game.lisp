@@ -8,3 +8,15 @@
   (cadr (assoc location node)))
 
 
+;edges
+(defparameter *edges* '( (living-room (attic upstairs ladder) (garden west door)) 
+                         (gardent (living-room east door)) 
+                         (attic (living-room downstairs ladder)) ))
+
+
+;find edges
+(defun describe-path (edge) `(there is a ,(caddr edge) going ,(cadr edge) from here.))
+
+
+
+
