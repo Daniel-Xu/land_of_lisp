@@ -18,5 +18,32 @@
 (defun describe-path (edge) `(there is a ,(caddr edge) going ,(cadr edge) from here.))
 
 
+;desc multipul paths
+
+(defun describe-paths (location edges) (apply #'append (mapcar #'describe-path (cdr (assoc location)))))
+
+;object
+(defparameter *objects* '(whiskey bucket frog chain))
+
+;object in specified location
+(defparameter *object-location* '((whiskey living-room)
+                                  (bucket living-room)
+                                  (chain garden)
+                                  (frog garden)))
+
+;define a local fun in the object-at
+;giving a location, we can find the objects in it
+(defun objects-at (loc objs obj-locs) 
+  (
+   labels ((at-loc-p (obj) (eq (cadr (assoc obj obj-locs)) loc)))
+   (remove-if-not #'at-loc-p objs)
+  )
+)
 
 
+;describe each of the object in one location
+
+(defun describe-objects (loc objects obj-locs) 
+  ( labels ((describe-obj (obj) `(you see a ,obj on the floor.)))
+   (apply #'append (mapcar #'describe-obj (objects-at loc objects obj-locs)))))
+  
